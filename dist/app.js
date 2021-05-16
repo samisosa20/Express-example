@@ -1,5 +1,7 @@
 "use strict";
 
+var _path = _interopRequireDefault(require("path"));
+
 var _bodyParser = _interopRequireDefault(require("body-parser"));
 
 var _methodOverride = _interopRequireDefault(require("method-override"));
@@ -20,27 +22,12 @@ app.use(_bodyParser["default"].urlencoded({
 }));
 app.use(_bodyParser["default"].json());
 app.use((0, _methodOverride["default"])());
-var router = (0, _express.Router)(); // simple petition GET and POST
+var router = (0, _express.Router)(); // hace llamado a todas las rutas
 
-/* router.get("/", function(req, res) {
-  res.send("Hello World!");
-});
-router.get("/:name", function(req, res) {
-  res.status(200).json({ name: req.params.name });
-});
-router.post("/name/:name", function(req, res) {
-  res.status(200).json({ name: req.params.name });
-});
-router.post("/new/name", function(req, res) {
-  res.status(200).send(req.body.name);
-}); */
-
-router.use("/api/v1", (0, _api["default"])());
-/* router.get("/:name", function (req, res) {
-  res.status(200).json({ name: req.params.name });
-}); */
+router.use("/api/v1", (0, _api["default"])()); // Le indica al sistema que rutas se van ha usar
 
 app.use(router);
+app.use(express["static"](_path["default"].join(__dirname, "../public")));
 app.listen(_config["default"].port, function () {
   console.log("Node server running on http://localhost:".concat(_config["default"].port));
 });

@@ -1,14 +1,26 @@
 "use strict";
 
-var express = require('express');
-
-var router = express.Router(); // Home page route
-
-router.get('/user', function (req, res) {
-  res.send('Página de inicio Wiki');
-}); // About page route
-
-router.get('/about', function (req, res) {
-  res.send('Acerca de esta wiki');
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-module.exports = router;
+exports["default"] = void 0;
+
+var user = function user(app) {
+  app.get("/:name", function (req, res) {
+    res.status(200).json({
+      name: req.params.name
+    });
+  });
+  app.post("/name/:name", function (req, res) {
+    res.status(200).json({
+      name: req.params.name
+    });
+  });
+  app.post("/new/name", function (req, res) {
+    res.status(200).send(req.body.name);
+  });
+  return app;
+};
+
+var _default = user;
+exports["default"] = _default;

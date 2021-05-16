@@ -1,14 +1,14 @@
-var express = require('express');
-var router = express.Router();
-
-// Home page route
-router.get('/user', function(req, res) {
-  res.send('Página de inicio Wiki');
-});
-
-// About page route
-router.get('/about', function(req, res) {
-  res.send('Acerca de esta wiki');
-});
-
-module.exports = router;
+const user = (app) =>{
+  app.get("/:name", function(req, res) {
+    res.status(200).json({ name: req.params.name });
+  });
+  app.post("/name/:name", function(req, res) {
+    res.status(200).json({ name: req.params.name });
+  });
+  app.post("/new/name", function(req, res) {
+    res.status(200).send(req.body.name);
+  });
+  return app
+  }
+  
+  export default user;
