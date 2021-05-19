@@ -1,3 +1,4 @@
+const asyncHandler = require('express-async-handler')
 const express = require("express"),
   app = express();
 import path from "path";
@@ -14,7 +15,7 @@ app.use(methodOverride());
 const router = Router();
 
 // hace llamado a todas las rutas
-router.use("/api/v1", api());
+router.use("/api/v1", asyncHandler(api()));
 
 // Le indica al sistema que rutas se van ha usar
 app.use(router);

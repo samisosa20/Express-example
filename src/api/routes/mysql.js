@@ -1,12 +1,6 @@
-import mysql from "mysql";
 import { param, body, validationResult } from "express-validator";
 
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "*p-=jpNN",
-  database: "test"
-});
+import query from "../../services/mysql"
 
 const validator = [
   param("id")
@@ -33,36 +27,21 @@ const validatorPost = [
     .withMessage("name debe ser entre 3 a 100 caracteres")
 ];
 
-connection.connect();
 const clients = app => {
   app.get("/clients/all", function(req, res) {
-    const sql = "SELECT nombre, apellido, edad FROM clientes";
-    connection.query(sql, function(error, results) {
-      if (error) throw error;
-      if (results.length > 0) {
-        res.status(200).json(results);
-      } else {
-        res.status(200).json({ result: "Not result" });
-      }
-    });
+    const result = query('GETALL', req)
+    res.status(result.status).json({data: result.results});
   });
 
-  app.get("/clients/:id", validator, function(req, res) {
+ app.get("/clients/:id", validator, function(req, res) {
     if (!validationResult(req).isEmpty()) {
-      res.status(200).json({ result: validationResult(req) });
+      res.status(200).json({ data: validationResult(req) });
     } else {
-      const sql = `SELECT nombre, apellido, edad FROM clientes WHERE id = ${req.params.id}`;
-      connection.query(sql, function(error, results) {
-        if (error) throw error;
-        if (results.length > 0) {
-          res.status(200).json(results);
-        } else {
-          res.status(200).json({ result: "Not result" });
-        }
-      });
+      const result = query('GETID', req)
+      res.status(result.status).json({result: query.results});
     }
   });
-  app.post("/clients/new", validatorPost, function(req, res) {
+ /*   app.post("/clients/new", validatorPost, function(req, res) {
     if (!validationResult(req).isEmpty()) {
       res.status(200).json({ result: validationResult(req) });
     } else {
@@ -91,7 +70,7 @@ const clients = app => {
       if (error) res.status(400).json({ result: error });
       res.status(200).json({ result: "Client deleted!" });
     });
-  });
+  }); */
 
   //connection.end();
 };
