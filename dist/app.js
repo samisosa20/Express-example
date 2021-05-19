@@ -12,9 +12,9 @@ var _express = require("express");
 
 var _api = _interopRequireDefault(require("./api"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+require("regenerator-runtime/runtime");
 
-var asyncHandler = require('express-async-handler');
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var express = require("express"),
     app = express();
@@ -26,7 +26,7 @@ app.use(_bodyParser["default"].json());
 app.use((0, _methodOverride["default"])());
 var router = (0, _express.Router)(); // hace llamado a todas las rutas
 
-router.use("/api/v1", asyncHandler((0, _api["default"])())); // Le indica al sistema que rutas se van ha usar
+router.use("/api/v1", (0, _api["default"])()); // Le indica al sistema que rutas se van ha usar
 
 app.use(router);
 app.use(express["static"](_path["default"].join(__dirname, "../public")));

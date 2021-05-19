@@ -11,6 +11,10 @@ var _mysql = _interopRequireDefault(require("../../services/mysql"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 var validator = [(0, _expressValidator.param)("id").isInt().withMessage("id debe ser un numero entero")];
 var validatorPost = [(0, _expressValidator.body)("year").not().isEmpty().withMessage("El campo year no debe ser vacio").isLength({
   min: 2,
@@ -21,12 +25,34 @@ var validatorPost = [(0, _expressValidator.body)("year").not().isEmpty().withMes
 }).withMessage("name debe ser entre 3 a 100 caracteres")];
 
 var clients = function clients(app) {
-  app.get("/clients/all", function (req, res) {
-    var result = (0, _mysql["default"])('GETALL', req);
-    res.status(result.status).json({
-      data: result.results
-    });
-  });
+  app.get("/clients/all", /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(req, res) {
+      var result;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return (0, _mysql["default"])('GETALL', req);
+
+            case 2:
+              result = _context.sent;
+              res.status(result.status).json({
+                data: result.results
+              });
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function (_x, _x2) {
+      return _ref.apply(this, arguments);
+    };
+  }());
   app.get("/clients/:id", validator, function (req, res) {
     if (!(0, _expressValidator.validationResult)(req).isEmpty()) {
       res.status(200).json({

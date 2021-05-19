@@ -1,18 +1,26 @@
 import mysql from "mysql";
-const asyncHandler = require('express-async-handler')
+import { makeDb } from "mysql-async-simple";
+import "regenerator-runtime/runtime";
 
+const db = makeDb();
 
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "*p-=jpNN",
-  database: "test",
+  database: "test"
 });
 
-connection.connect();
+const result = {
+  status: 200,
+  results: []
+};
 
-const query = (method, req) => {
-  let sql = "";
+//connection.connect();
+
+const query = async (method, req) => {
+  await db.connect(connection);
+  let sql = "", fields = [];
   switch (method) {
     case "GETALL":
       sql = "SELECT nombre, apellido, edad FROM clientes";
@@ -21,21 +29,15 @@ const query = (method, req) => {
       sql = `SELECT nombre, apellido, edad FROM clientes WHERE id = ${req.params.id}`;
       break;
   }
-  const result = {
-    status: 200,
-    results: [],
-  };
-  connection.query(sql, function (error, results) {
-    if (error) throw new Error(error);
-    if (results.length > 0) {
-      result.results = results;
-    } else {
-      result.status = 205;
-      result.results.push("Not result");
-    }
-    return result;
-  });
-  console.log(returnQuery)
+  try {
+    result.results = await db.query(connection, sql);
+  } catch (e) {
+    // handle exception
+    result.results = e
+  } finally {
+    await db.close(connection);
+  }
+  return result;
 };
 
 export default query;

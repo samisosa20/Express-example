@@ -28,8 +28,8 @@ const validatorPost = [
 ];
 
 const clients = app => {
-  app.get("/clients/all", function(req, res) {
-    const result = query('GETALL', req)
+  app.get("/clients/all", async function(req, res) {
+    const result = await query('GETALL', req)
     res.status(result.status).json({data: result.results});
   });
 
