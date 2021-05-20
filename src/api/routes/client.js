@@ -1,10 +1,11 @@
+// Packages
 import { validationResult } from "express-validator";
 
 // Validators
 import valClient from "../../validator/clients";
 
 // Services
-import query from "../../services/mysql";
+import query from "../../services/Client";
 
 const clients = (app) => {
   app.get("/clients/all", async function (req, res) {
@@ -48,7 +49,5 @@ const clients = (app) => {
       }
     }
   );
-
-  //connection.end();
 };
 export default clients;

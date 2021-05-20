@@ -1,8 +1,11 @@
+// Packages
 import { Router } from "express";
+
+// Routes
 import test from "./routes/test";
 import user from "./routes/user";
-import clients from "./routes/mysql";
-// guaranteed to get dependencies
+import clients from "./routes/client";
+
 export default () => {
   const app = Router();
   test(app);

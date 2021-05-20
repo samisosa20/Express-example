@@ -7,11 +7,11 @@ exports["default"] = void 0;
 
 var _mysql = _interopRequireDefault(require("mysql"));
 
-var _config = _interopRequireDefault(require("../config"));
-
 var _mysqlAsyncSimple = require("mysql-async-simple");
 
 require("regenerator-runtime/runtime");
+
+var _config = _interopRequireDefault(require("../../config"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 

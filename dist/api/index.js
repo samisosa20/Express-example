@@ -11,16 +11,17 @@ var _test = _interopRequireDefault(require("./routes/test"));
 
 var _user = _interopRequireDefault(require("./routes/user"));
 
-var _mysql = _interopRequireDefault(require("./routes/mysql"));
+var _client = _interopRequireDefault(require("./routes/client"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-// guaranteed to get dependencies
+// Packages
+// Routes
 var _default = function _default() {
   var app = (0, _express.Router)();
   (0, _test["default"])(app);
   (0, _user["default"])(app);
-  (0, _mysql["default"])(app);
+  (0, _client["default"])(app);
   return app;
 };
 

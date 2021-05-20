@@ -7,6 +7,7 @@ exports["default"] = void 0;
 
 var _expressValidator = require("express-validator");
 
+// Packages
 var valClient = {
   getId: [(0, _expressValidator.param)("id").isInt().withMessage("id debe ser un numero entero")],
   post: [(0, _expressValidator.body)("year").not().isEmpty().withMessage("El campo year no debe ser vacio").isLength({

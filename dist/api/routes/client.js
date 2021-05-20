@@ -9,7 +9,7 @@ var _expressValidator = require("express-validator");
 
 var _clients = _interopRequireDefault(require("../../validator/clients"));
 
-var _mysql = _interopRequireDefault(require("../../services/mysql"));
+var _Client = _interopRequireDefault(require("../../services/Client"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -26,7 +26,7 @@ var clients = function clients(app) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return (0, _mysql["default"])("GETALL", req);
+              return (0, _Client["default"])("GETALL", req);
 
             case 2:
               result = _context.sent;
@@ -66,12 +66,12 @@ var clients = function clients(app) {
 
             case 4:
               _context2.next = 6;
-              return (0, _mysql["default"])("GETID", req);
+              return (0, _Client["default"])("GETID", req);
 
             case 6:
               result = _context2.sent;
               res.status(result.status).json({
-                result: _mysql["default"].results
+                result: _Client["default"].results
               });
 
             case 8:
@@ -106,12 +106,12 @@ var clients = function clients(app) {
 
             case 4:
               _context3.next = 6;
-              return (0, _mysql["default"])("POSTNEW", req);
+              return (0, _Client["default"])("POSTNEW", req);
 
             case 6:
               result = _context3.sent;
               res.status(result.status).json({
-                result: _mysql["default"].results
+                result: _Client["default"].results
               });
 
             case 8:
@@ -146,12 +146,12 @@ var clients = function clients(app) {
 
             case 4:
               _context4.next = 6;
-              return (0, _mysql["default"])("PUTID", req);
+              return (0, _Client["default"])("PUTID", req);
 
             case 6:
               result = _context4.sent;
               res.status(result.status).json({
-                result: _mysql["default"].results
+                result: _Client["default"].results
               });
 
             case 8:
@@ -186,12 +186,12 @@ var clients = function clients(app) {
 
             case 4:
               _context5.next = 6;
-              return (0, _mysql["default"])("DELETEID", req);
+              return (0, _Client["default"])("DELETEID", req);
 
             case 6:
               result = _context5.sent;
               res.status(result.status).json({
-                result: _mysql["default"].results
+                result: _Client["default"].results
               });
 
             case 8:
@@ -205,7 +205,7 @@ var clients = function clients(app) {
     return function (_x9, _x10) {
       return _ref5.apply(this, arguments);
     };
-  }()); //connection.end();
+  }());
 };
 
 var _default = clients;

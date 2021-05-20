@@ -1,7 +1,10 @@
+// Packages
 import mysql from "mysql";
-import config from "../config";
 import { makeDb } from "mysql-async-simple";
 import "regenerator-runtime/runtime";
+
+// Settings
+import config from "../../config";
 
 const db = makeDb();
 
