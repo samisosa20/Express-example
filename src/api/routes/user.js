@@ -2,9 +2,6 @@
 import { passwordHash, createtokenLogin, verifyToken } from "../../api/controllers/users";
 
 const user = app => {
-  app.get("/:name", function(req, res) {
-    res.status(200).json({ name: req.params.name });
-  });
   app.get("/user/protect/:name", function(req, res) {
     const validateToken = verifyToken(req)
     if(validateToken.status){

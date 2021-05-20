@@ -1,0 +1,10 @@
+[
+  {
+    "date": "2021-05-20",
+    "data": "Hello World!"
+  },
+  {
+    "date": "2021-05-20",
+    "data": "Writting in JSON file"
+  }
+]

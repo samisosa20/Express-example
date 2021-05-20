@@ -15,26 +15,26 @@ const clients = (app) => {
 
   app.get("/clients/:id", valClient.getId, async function (req, res) {
     if (!validationResult(req).isEmpty()) {
-      res.status(200).json({ data: validationResult(req) });
+      res.status(400).json({ data: validationResult(req) });
     } else {
       const result = await query("GETID", req);
-      res.status(result.status).json({ result: query.results });
+      res.status(result.status).json({ result: result.results });
     }
   });
   app.post("/clients/new", valClient.post, async function (req, res) {
     if (!validationResult(req).isEmpty()) {
-      res.status(200).json({ result: validationResult(req) });
+      res.status(400).json({ result: validationResult(req) });
     } else {
       const result = await query("POSTNEW", req);
-      res.status(result.status).json({ result: query.results });
+      res.status(result.status).json({ result: result.results });
     }
   });
   app.put("/clients/update/:id", valClient.put, async function (req, res) {
     if (!validationResult(req).isEmpty()) {
-      res.status(200).json({ result: validationResult(req) });
+      res.status(400).json({ result: validationResult(req) });
     } else {
       const result = await query("PUTID", req);
-      res.status(result.status).json({ result: query.results });
+      res.status(result.status).json({ result: result.results });
     }
   });
   app.delete(
@@ -42,10 +42,10 @@ const clients = (app) => {
     valClient.getId,
     async function (req, res) {
       if (!validationResult(req).isEmpty()) {
-        res.status(200).json({ result: validationResult(req) });
+        res.status(400).json({ result: validationResult(req) });
       } else {
         const result = await query("DELETEID", req);
-        res.status(result.status).json({ result: query.results });
+        res.status(result.status).json({ result: result.results });
       }
     }
   );
