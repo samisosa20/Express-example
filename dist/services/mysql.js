@@ -7,6 +7,8 @@ exports["default"] = void 0;
 
 var _mysql = _interopRequireDefault(require("mysql"));
 
+var _config = _interopRequireDefault(require("../config"));
+
 var _mysqlAsyncSimple = require("mysql-async-simple");
 
 require("regenerator-runtime/runtime");
@@ -19,75 +21,105 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var db = (0, _mysqlAsyncSimple.makeDb)();
 
-var connection = _mysql["default"].createConnection({
-  host: "localhost",
-  user: "root",
-  password: "*p-=jpNN",
-  database: "test"
-});
-
-var result = {
-  status: 200,
-  results: []
-}; //connection.connect();
-
 var query = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(method, req) {
-    var sql, fields;
+    var sql, result, customerObj, connection;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
+            sql = "";
+            result = {
+              status: 200,
+              results: []
+            };
+            customerObj = {
+              nombre: "",
+              apellido: "",
+              edad: 0
+            };
+            connection = _mysql["default"].createConnection({
+              host: _config["default"].mysql.host,
+              user: _config["default"].mysql.user,
+              password: _config["default"].mysql.password,
+              database: _config["default"].mysql.database
+            });
+            _context.prev = 4;
+            _context.next = 7;
             return db.connect(connection);
 
-          case 2:
-            sql = "", fields = [];
-            _context.t0 = method;
-            _context.next = _context.t0 === "GETALL" ? 6 : _context.t0 === "GETID" ? 8 : 10;
+          case 7:
+            _context.next = 14;
             break;
 
-          case 6:
-            sql = "SELECT nombre, apellido, edad FROM clientes";
-            return _context.abrupt("break", 10);
-
-          case 8:
-            sql = "SELECT nombre, apellido, edad FROM clientes WHERE id = ".concat(req.params.id);
-            return _context.abrupt("break", 10);
-
-          case 10:
-            _context.prev = 10;
-            _context.next = 13;
-            return db.query(connection, sql);
-
-          case 13:
-            result.results = _context.sent;
-            _context.next = 19;
-            break;
-
-          case 16:
-            _context.prev = 16;
-            _context.t1 = _context["catch"](10);
-            // handle exception
-            result.results = _context.t1;
-
-          case 19:
-            _context.prev = 19;
-            _context.next = 22;
-            return db.close(connection);
-
-          case 22:
-            return _context.finish(19);
-
-          case 23:
+          case 9:
+            _context.prev = 9;
+            _context.t0 = _context["catch"](4);
+            result.results = _context.t0;
+            result.status = 500;
             return _context.abrupt("return", result);
 
-          case 24:
+          case 14:
+            _context.t1 = method;
+            _context.next = _context.t1 === "GETALL" ? 17 : _context.t1 === "GETID" ? 19 : _context.t1 === "POSTNEW" ? 21 : _context.t1 === "PUTID" ? 26 : _context.t1 === "DELETEID" ? 28 : 30;
+            break;
+
+          case 17:
+            sql = "SELECT nombre, apellido, edad FROM clientes";
+            return _context.abrupt("break", 30);
+
+          case 19:
+            sql = "SELECT nombre, apellido, edad FROM clientes WHERE id = ".concat(req.params.id);
+            return _context.abrupt("break", 30);
+
+          case 21:
+            sql = "INSERT INTO clientes SET ?";
+            customerObj.nombre = req.body.name;
+            customerObj.apellido = req.body.lastName;
+            customerObj.edad = req.body.year;
+            return _context.abrupt("break", 30);
+
+          case 26:
+            sql = "UPDATE clientes SET nombre = '".concat(req.body.name, "', apellido = '").concat(req.body.lastName, "', edad = ").concat(req.body.year, " WHERE id = ").concat(req.params.id);
+            return _context.abrupt("break", 30);
+
+          case 28:
+            sql = "DELETE FROM clientes WHERE id = ".concat(req.params.id);
+            return _context.abrupt("break", 30);
+
+          case 30:
+            _context.prev = 30;
+            _context.next = 33;
+            return db.query(connection, sql, [customerObj]);
+
+          case 33:
+            result.results = _context.sent;
+            _context.next = 40;
+            break;
+
+          case 36:
+            _context.prev = 36;
+            _context.t2 = _context["catch"](30);
+            result.status = 500;
+            result.results = _context.t2;
+
+          case 40:
+            _context.prev = 40;
+            _context.next = 43;
+            return db.close(connection);
+
+          case 43:
+            return _context.finish(40);
+
+          case 44:
+            return _context.abrupt("return", result);
+
+          case 45:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[10, 16, 19, 23]]);
+    }, _callee, null, [[4, 9], [30, 36, 40, 44]]);
   }));
 
   return function query(_x, _x2) {

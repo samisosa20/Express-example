@@ -24,6 +24,10 @@ app.use(_bodyParser["default"].urlencoded({
 }));
 app.use(_bodyParser["default"].json());
 app.use((0, _methodOverride["default"])());
+/* app.use(logErrors);
+app.use(clientErrorHandler);
+app.use(errorHandler); */
+
 var router = (0, _express.Router)(); // hace llamado a todas las rutas
 
 router.use("/api/v1", (0, _api["default"])()); // Le indica al sistema que rutas se van ha usar

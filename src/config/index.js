@@ -4,7 +4,12 @@ dotenv.config();
 
 const config = {
   port: process.env.PORT,
-  databaseURL: process.env.DATABASE_URI,
+  mysql: {
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PWD,
+    database: process.env.DB_NAME,
+  },
   paypal: {
     publicKey: process.env.PAYPAL_PUBLIC_KEY,
     secretKey: process.env.PAYPAL_SECRET_KEY,
