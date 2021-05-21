@@ -39,8 +39,7 @@
   "nodemonConfig": {
     "exec": "npm run prod",
     "watch": [
-      "src/*",
-      "public/*"
+      "src/*"
     ],
     "ignore": [
       "**/__tests__/**",
